@@ -65,7 +65,7 @@ public class AirportService {
     public String bookATicket(Integer flightId,Integer passengerId)
     {
        List<Integer> passengerList = airportRepository.getPassengersFromFlightId(flightId);
-       if(passengerList.size() < airportRepository.getFlightCapacity(flightId) && ! passengerList.contains(passengerId))
+       if(passengerList.size() < airportRepository.getFlightCapacity(flightId) && !(passengerList.contains(passengerId)))
        {
            passengerList.add(passengerId);
            airportRepository.addFlightPassengerPair(flightId,passengerList);
@@ -109,12 +109,12 @@ public class AirportService {
     }
     public int totalRevenue(Integer flightId)
     {
-        List<Integer> revenueList = airportRepository.flightPassengerMap.get(flightId);
+        List<Integer> revenueList = airportRepository.passengerInFlight(flightId);
         Integer totalFare = 0;
 
-        for(Integer fares : revenueList)
+        for(Integer passengerId : revenueList)
         {
-            totalFare += airportRepository.passengerfareMap.get(fares);
+            totalFare += airportRepository.getFareOfPassenger(passengerId);
         }
         return totalFare;
     }
