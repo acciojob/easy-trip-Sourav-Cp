@@ -1,6 +1,7 @@
 package com.driver.controllers;
 
 import com.driver.model.Airport;
+import com.driver.model.City;
 import com.driver.model.Flight;
 import com.driver.model.Passenger;
 import org.springframework.stereotype.Repository;
@@ -60,5 +61,13 @@ public class AirportRepository {
     public int getFareOfPassenger(Integer passengerId)
     {
         return passengerfareMap.get(passengerId);
+    }
+    public List<Integer> getAllFlightId()
+    {
+        return new ArrayList<>(flightPassengerMap.keySet());
+    }
+    public City nameOfCity(Integer flightId)
+    {
+        return flightMap.get(flightId).getFromCity();
     }
 }

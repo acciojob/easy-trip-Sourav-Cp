@@ -118,5 +118,23 @@ public class AirportService {
         }
         return totalFare;
     }
+    public int totalBookingByPassenger(Integer passengerId)
+    {
+        int cnt = 0;
 
+        List<Integer> flights = airportRepository.getAllFlightId();
+        for(Integer flightId : flights)
+        {
+            List<Integer>passengers = airportRepository.getPassengersFromFlightId(flightId);
+            if(passengers.contains(passengerId)) cnt++;
+        }
+        return cnt;
+    }
+    public String airportName(Integer flightId)
+    {
+        List<Integer> flights = airportRepository.getAllFlightId();
+        if(!flights.contains(flightId)) return null;
+
+        return airportRepository.nameOfCity(flightId).name();
+    }
 }
