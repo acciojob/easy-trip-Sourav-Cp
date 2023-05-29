@@ -67,6 +67,11 @@ public class AirportService {
            airportRepository.addFlightPassengerPair(flightId,passengerList);
            Integer fare = 3000 + 50*passengerList.size()-1;
            airportRepository.addPassengerFarePair(passengerId,fare);
+
+           Integer revenue = airportRepository.getRevenueOfFlight(flightId);
+           revenue += fare;
+           airportRepository.addRevenue(flightId,revenue);
+
            return "SUCCESS";
        }
        return "FAILURE";
@@ -78,7 +83,12 @@ public class AirportService {
         {
             passengerList.remove(passengerId);
             airportRepository.addFlightPassengerPair(flightId,passengerList);
-            airportRepository.passengerfareMap.remove(passengerId);
+            int fare = airportRepository.passengerfareMap.remove(passengerId);
+
+            int revenue = airportRepository.getRevenueOfFlight(flightId);
+            revenue -= fare;
+            airportRepository.addRevenue(flightId,revenue);
+
             return "SUCCESS";
         }
         return "FAILURE";
@@ -106,14 +116,7 @@ public class AirportService {
     }
     public int totalRevenue(Integer flightId)
     {
-        List<Integer> revenueList = airportRepository.passengerInFlight(flightId);
-        Integer totalFare = 0;
-
-        for(Integer passengerId : revenueList)
-        {
-            totalFare += airportRepository.getFareOfPassenger(passengerId);
-        }
-        return totalFare;
+        return airportRepository.getRevenueOfFlight(flightId);
     }
     public int totalBookingByPassenger(Integer passengerId)
     {

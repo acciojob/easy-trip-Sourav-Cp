@@ -15,6 +15,7 @@ public class AirportRepository {
     Map<Integer,Passenger> passengerMap = new HashMap<>();
     Map<Integer,List<Integer>> flightPassengerMap = new HashMap<>();
     Map<Integer,Integer> passengerfareMap = new HashMap<>();
+    Map<Integer,Integer> flightRevenueMap = new HashMap<>();
     public void addAirport(Airport airport)
     {
         airportMap.put(airport.getAirportName(),airport);
@@ -73,5 +74,13 @@ public class AirportRepository {
     public City getAirportCity(String airportName)
     {
        return airportMap.get(airportName).getCity();
+    }
+    public int getRevenueOfFlight(Integer flightId)
+    {
+        return flightRevenueMap.getOrDefault(flightId,0);
+    }
+    public void addRevenue(Integer flightId,Integer revenue)
+    {
+        flightRevenueMap.put(flightId,revenue);
     }
 }
