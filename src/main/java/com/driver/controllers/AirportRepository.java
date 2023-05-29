@@ -63,10 +63,15 @@ public class AirportRepository {
     }
     public List<Integer> getAllFlightId()
     {
-        return new ArrayList<>(flightPassengerMap.keySet());
+        return new ArrayList<>(flightMap.keySet());
     }
     public City nameOfCity(Integer flightId)
     {
         return flightMap.get(flightId).getFromCity();
+    }
+
+    public City getAirportCity(String airportName)
+    {
+       return airportMap.get(airportName).getCity();
     }
 }
