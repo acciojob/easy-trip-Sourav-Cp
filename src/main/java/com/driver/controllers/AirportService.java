@@ -95,15 +95,16 @@ public class AirportService {
     }
     public int getNumberOfPeople(Date date,String airportName)
     {
-        City city = airportRepository.getAirportCity(airportName);
+        Airport airport = airportRepository.getAirportCity(airportName);
         int cnt = 0;
-        List<Flight> flightList = airportRepository.getAllFlights();
-        for(Flight flight : flightList)
-        {
-            if(flight.getFlightDate().equals(date) &&(city.equals(flight.getFromCity()) || city.equals(flight.getToCity())))
-            {
-                Integer flightId = flight.getFlightId();
-                cnt += airportRepository.getPassengersFromFlightId(flightId).size();
+        if(airport != null) {
+            City city = airport.getCity();
+            List<Flight> flightList = airportRepository.getAllFlights();
+            for (Flight flight : flightList) {
+                if (flight.getFlightDate().equals(date) && (city.equals(flight.getFromCity()) || city.equals(flight.getToCity()))) {
+                    Integer flightId = flight.getFlightId();
+                    cnt += airportRepository.getPassengersFromFlightId(flightId).size();
+                }
             }
         }
         return cnt;

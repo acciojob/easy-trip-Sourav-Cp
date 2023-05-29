@@ -71,9 +71,9 @@ public class AirportRepository {
         return flightMap.get(flightId).getFromCity();
     }
 
-    public City getAirportCity(String airportName)
+    public Airport getAirportCity(String airportName)
     {
-       return airportMap.get(airportName).getCity();
+       return airportMap.get(airportName);
     }
     public int getRevenueOfFlight(Integer flightId)
     {
