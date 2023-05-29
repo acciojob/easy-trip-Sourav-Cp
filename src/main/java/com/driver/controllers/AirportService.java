@@ -65,7 +65,7 @@ public class AirportService {
        {
            passengerList.add(passengerId);
            airportRepository.addFlightPassengerPair(flightId,passengerList);
-           Integer fare = 3000 + 50*passengerList.size()-1;
+           Integer fare = 3000 + 50*(passengerList.size()-1);
            airportRepository.addPassengerFarePair(passengerId,fare);
 
            Integer revenue = airportRepository.getRevenueOfFlight(flightId);
